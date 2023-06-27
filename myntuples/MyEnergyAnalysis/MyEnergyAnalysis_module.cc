@@ -197,7 +197,7 @@ namespace lar {
       double fVis_LepE;                      // Generator level neutrino lepton energy [GeV]
       double fLepMass;                      // Generator level neutrino lepton mass [GeV]
       int fStatusCode;                    // Generator level neutrino lepton statuscode
-      double fLepNuAngle;                // Angle b/w nu and lepton
+      double fLepNuAngle;                // Angle b/w nu and lepton [radians]
 
 
 
