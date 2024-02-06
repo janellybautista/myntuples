@@ -766,7 +766,7 @@ namespace lar {
             }
             // eOther same definition as ND legacy CAF, add Jan 16, 2024
             else if ( fP_PDG.at(p) > 1000000000 ) {} // do nothing
-            else if ( fP_PDG.at(p) == 13 || fP_PDG.at(p) == 14 || fP_PDG.at(p) == 15) // Exclude lepton E. Modify eOther definition, Feb 6, 2024
+            else if ( fP_PDG.at(p) == 13 || fP_PDG.at(p) == 14 || fP_PDG.at(p) == 15) {} // Exclude lepton E. Modify eOther definition, Feb 6, 2024
             else {
               eOther += fP_Ek.at(p);
               nOther++;
