@@ -758,13 +758,15 @@ namespace lar {
               ePi0 += fP_Ek.at(p);
               nPi0++;
             }
-            else if ( fP_PDG.at(p) == 321 || fP_PDG.at(p) == -321 || fP_PDG.at(p) == 311 || fP_PDG.at(p) == -311 || fP_PDG.at(p) == 130 || fP_PDG.at(p) == 310 || fP_PDG.at(p) == 22 || (fP_PDG.at(p)>=100 && fP_PDG.at(p)<=9999) || (fP_PDG.at(p)>=-9999 && fP_PDG.at(p)<=-100)) // kPdgKP, kPdgKM, kPdgK0, kPdgAntiK0, kPdgK0L, kPdgK0S, kPdgGamma, IsHadron(pdg)
-            {
+            // else if ( fP_PDG.at(p) == 321 || fP_PDG.at(p) == -321 || fP_PDG.at(p) == 311 || fP_PDG.at(p) == -311 || fP_PDG.at(p) == 130 || fP_PDG.at(p) == 310 || fP_PDG.at(p) == 22 || (fP_PDG.at(p)>=100 && fP_PDG.at(p)<=9999) || (fP_PDG.at(p)>=-9999 && fP_PDG.at(p)<=-100)) // kPdgKP, kPdgKM, kPdgK0, kPdgAntiK0, kPdgK0L, kPdgK0S, kPdgGamma, IsHadron(pdg)
+            // { // old definition
+            else if ( fP_PDG.at(p) == 321 || fP_PDG.at(p) == -321 || fP_PDG.at(p) == 311 || fP_PDG.at(p) == -311 || fP_PDG.at(p) == 130 || fP_PDG.at(p) == 310 || fP_PDG.at(p) == 22 ) {
               eOther += fP_Ek.at(p);
               nOther++;
             }
-            // Change eOther back to old definition, Feb 6, 2024
-            // else if ( fP_PDG.at(p) > 1000000000 ) {} // do nothing // eOther same definition as ND legacy CAF, add Jan 16, 2024
+            // eOther same definition as ND legacy CAF, add Jan 16, 2024
+            else if ( fP_PDG.at(p) > 1000000000 ) {} // do nothing
+            else if ( fP_PDG.at(p) == 13 || fP_PDG.at(p) == 14 || fP_PDG.at(p) == 15) // Exclude lepton E. Modify eOther definition, Feb 6, 2024
             else {
               eOther += fP_Ek.at(p);
               nOther++;
