@@ -10,6 +10,7 @@
 // layers (nusimdata, art, etc.), ending with C++ is standard.
 
 // LArSoft includes
+#include "larcore/CoreUtils/ServiceUtil.h"
 #include "larcore/Geometry/Geometry.h"
 #include "larcorealg/Geometry/GeometryCore.h"
 #include "larcoreobj/SimpleTypesAndConstants/geo_types.h"
