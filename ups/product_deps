@@ -1,56 +1,46 @@
 # This @product_deps@ file defines dependencies for this package.
 
 # The *parent* line must the first non-commented line and defines this product and version
-# The version must be of the form vxx_yy_zz (e.g. v01_02_03).
+# The version should be of the form vxx_yy_zz (e.g. v01_02_03)
+parent myntuples v09_22_02
+defaultqual e19
 
-parent dunesw
-
-defaultqual e26
-
-# These optional lines define where headers, libraries, and executables go and should
-# be used only if your product does not conform to the defaults.
+# These optional lines define the installed directories where headers,
+# libraries, and executables will be found.
+# Use them only if your product does not conform to the defaults
+#
 # Format: directory_type directory_path directory_name
-#   where directory_type is one of incdir, libdir, or bindir
-#   where directory_path is one of product_dir, fq_dir and -
+#
+# The only recognized values of the first field are fcldir, gdmldir, incdir, libdir, and bindir
+# The only recognized values of the second field are product_dir, fq_dir, and -
+# The third field is not constrained.
+#
 # Defaults:
-#incdir  product_dir  include
-#fcldir  product_dir  fcl
-#libdir  fq_dir       lib
-#bindir  fq_dir       bin
-
-table_fragment_begin
-    pathPrepend(FW_SEARCH_PATH, /cvmfs/dune.osgstorage.org/pnfs/fnal.gov/usr/dune/persistent/stash/)
-    pathPrepend(FHICL_FILE_PATH, .:./job)
-    envSet(DBIQEURL, http://dbdata0vm.fnal.gov:9090/QE/dune)
-    envSet(DBIUSER, pdunesp_reader)
-    envSet(DBIHOST, ifdbprod.fnal.gov)
-    envSet(DBIWSURL, https://dbdata0vm.fnal.gov:9443/dune_con_prod/app/)
-    envSet(DBINAME, pdunesp_prod)
-    envSet(DBIWSURLPUT, https://dbdata0vm.fnal.gov:9443/dune_con_prod/app/)
-    envSet(DBIPORT, 5451)
-    envSet(DBIWSURLINT, https://dbdata0vm.fnal.gov:9443/dune_con_prod/app/)
-table_fragment_end
+# incdir  product_dir  include
+# fcldir  product_dir  fcl
+# libdir  fq_dir       lib
+# bindir  fq_dir       bin
+# gdmldir -
+# fwdir   -
+#
+incdir	product_dir	include
+libdir	fq_dir		lib
+bindir	fq_dir		bin
+flcdir  product_dir     fcl
 
 # With "product  version" table below, we now define depdendencies
-
 # Add the dependent product and version
 
 product          version
-cetbuildtools	 v8_20_00	-	only_for_build
-duneexamples     v09_83_01d00
-dunedataprep     v09_83_01d00
-duneana          v09_83_01d00
-protoduneana     v09_83_01d00
+larsoft      v09_22_02
+cetbuildtools    v7_12_01  -  only_for_build
 end_product_list
-
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # Make a table by adding columns before "notes".
-qualifier       duneexamples   dunedataprep  duneana     protoduneana     notes
-c14:debug       c14:debug      c14:debug     c14:debug   c14:debug
-c14:prof        c14:prof       c14:prof      c14:prof    c14:prof
-e26:debug       e26:debug      e26:debug     e26:debug   e26:debug
-e26:prof        e26:prof       e26:prof      e26:prof    e26:prof
+qualifier      larsoft     notes
+e19:debug   e19:debug
+e19:prof    e19:prof
 end_qualifier_list
 
 # Preserve tabs and formatting in emacs and vi / vim:
