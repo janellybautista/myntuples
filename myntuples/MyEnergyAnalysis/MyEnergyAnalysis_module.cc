@@ -200,6 +200,10 @@ namespace lar {
       int fStatusCode;                    // Generator level neutrino lepton statuscode
       double fLepNuAngle;                // Angle b/w nu and lepton [radians]
 
+      double  fW;                        // Invariant mass of hadronic system [GeV]
+      double  fQ2;                //Momentum transfer squared [GeV^2]
+      double  fX;                  //Bjorken scaling variable
+      double  fY;                  //fraction of the incident particle's energy that is transferred to the target in the laboratory frame
 
 
       double fGen_numu_E;                // Energy of generator level neutrino [GeV]
@@ -372,6 +376,11 @@ namespace lar {
       fNtuple->Branch("Lepvtx_z",                 &fLepvtx_z,               "Lepvtx_z/D");
       fNtuple->Branch("StatusCode",         	    &fStatusCode,             "StatusCode/I");
 
+      fNtuple->Branch("W",         	              &fW,                      "W/D");
+      fNtuple->Branch("Q2",         	            &fQ2,                     "Q2/D");
+      fNtuple->Branch("X",         	              &fX,                      "X/D");
+      fNtuple->Branch("Y",         	              &fY,                      "Y/D");
+
       // Simulation branches Sim*
       fNtuple->Branch("SimP_TrackID_vec",              &fSimP_TrackID_vec);
       fNtuple->Branch("SimP_PDG_vec",                  &fSimP_PDG_vec);
@@ -528,6 +537,11 @@ namespace lar {
       fSim_LepE                  = 0.;
       fSim_HadE                  = 0.;
 
+      fW                         = -9999.;
+      fQ2                        = -9999.;
+      fX                         = -9999.;
+      fY                         = -9999.;
+
       // Initialize true info
       fLepNuAngle = -9999.;
       fLepMomX    = -9999.;
@@ -619,8 +633,8 @@ namespace lar {
       // Process generator level info
       //
 
-      // c.f. https://github.com/DUNE/dunetpc/blob/master/dune/FDSensOpt/CAFMaker_module.cc#L720
-      //      https://github.com/DUNE/dunetpc/blob/master/dune/FDSensOpt/NueAna_module.cc#L639
+      // c.f. https://github.com/DUNE/duneana/blob/80eed6d79f35511cee6c1eef61d295d30304e3aa/duneana/CAFMaker/CAFMaker_module.cc
+      //      https://github.com/DUNE/dunereco/blob/7703789559ef2c6caf7643da845cc1e593f4c8f7/dunereco/FDSensOpt/NueAna_module.cc
       art::Handle<std::vector<simb::MCTruth>> mctruthListHandle; // Generator level truth
       std::vector<art::Ptr<simb::MCTruth>> mclist;
       if ( event.getByLabel(fGenieGenModuleLabel, mctruthListHandle) ) art::fill_ptr_vector(mclist, mctruthListHandle);
@@ -648,7 +662,11 @@ namespace lar {
         fLepMass        = mclist[0]->GetNeutrino().Lepton().Mass();
         fVis_LepE       = mclist[0]->GetNeutrino().Lepton().Momentum().T() - fLepMass; // Generator level neutrino lepton kinetic energy
         fStatusCode     = mclist[0]->GetNeutrino().Lepton().StatusCode();  // Generator level neutrino lepton statuscode
-        fLepNuAngle = mclist[0]->GetNeutrino().Nu().Momentum().Vect().Angle(mclist[0]->GetNeutrino().Lepton().Momentum().Vect()); // Angle b/w nu and lepton
+        fLepNuAngle     = mclist[0]->GetNeutrino().Nu().Momentum().Vect().Angle(mclist[0]->GetNeutrino().Lepton().Momentum().Vect()); // Angle b/w nu and lepton
+        fW              = mclist[0]->GetNeutrino().W(); // Invariant mass of hadronic system
+        fQ2             = mclist[0]->GetNeutrino().QSqr();
+      	fX              = mclist[0]->GetNeutrino().X();
+	      fY              = mclist[0]->GetNeutrino().Y();
       }
       // Is evt vtx GetNeutrino().Nu().Vx()?
 
