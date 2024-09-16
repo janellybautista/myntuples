@@ -30,15 +30,14 @@ mrbsetenv                                                               # Create
 mrb b                                                                   # Compile the code in ${MRB_SOURCE}
 ```
 
-Produce a ROOT nTuple by running on DUNE FD MC files (Output file: FD "CAF" file: myntuple.root)
-
+Produce a ROOT nTuple by running on DUNE FD MC files (Output file: FD "CAF" file: myntuple.root) <font color="green"> Some green text </font>
 ```
 cd /dune/app/users/weishi/FDEff/srcs/myntuples/myntuples/MyEnergyAnalysis
 lar -c MyEnergyAnalysis.fcl -n -1 
 # 10k evts take about 32 minutes
 ```
 
-The next time you login a DUNE FNAL machine (dunegpvm*), do the following to set up:
+[After Set] The next time you login, do the following to set up:
 
 ```
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
