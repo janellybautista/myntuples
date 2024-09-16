@@ -4,7 +4,7 @@ The following instruction is used to produce ROOT n-tuples from FD MC files (mcc
 
 ## Environment setup
 
-[First time only]
+[First time setup only]
 
 ```
 cd /dune/app/users/$USER                                               
@@ -37,7 +37,7 @@ lar -c MyEnergyAnalysis.fcl -n -1
 # 10k evts take about 32 minutes
 ```
 
-[Loging back] The next time you login, do the following to set up:
+[Set up when loging back] 
 
 ```
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
