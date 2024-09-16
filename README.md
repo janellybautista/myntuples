@@ -2,23 +2,23 @@
 
 The following instruction is used to produce ROOT n-tuples from FD MC files (mcc11): [FD Beamsim Requests](https://dune-data.fnal.gov/mc/mcc11/index.html).
 
-## DUNE FNAL machines (dunegpvm*) environment setup
+## Environment setup (Obtain myntuples.git)
 
 [First time only]
 
 ```
-cd /dune/app/users/weishi                                               # Replace with your username for all commands below
+cd /dune/app/users/$USER                                               
 mkdir FDEff (first time only)
 cd FDEff
 
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup dunetpc v09_22_02 -q e19:debug
-[optional if run interactively] setup_fnal_security                     # A FNAL grid proxy to submit jobs and access data in dCache via xrootd or ifdh.
+[optional if run interactively]:  setup_fnal_security                     # A FNAL grid proxy to submit jobs and access data in dCache via xrootd or ifdh.
 
 mrb newDev
 # The prompt ask you to run this:
 source /dune/app/users/<your_username>/inspect/localProducts_larsoft_${LARSOFT_VERSION}_debug_${COMPILER}/setup
-# For example, mine is: source /dune/app/users/weishi/FDEff/localProducts_larsoft_v09_22_02_debug_e19/setup
+# For example, mine is: source /dune/app/users/janelly/FDEff/localProducts_larsoft_v09_22_02_debug_e19/setup
 
 cd srcs
 git clone https://github.com/weishi10141993/myntuples.git               # First time only, checkout the analysis code from GitHub
@@ -30,13 +30,11 @@ mrbsetenv                                                               # Create
 mrb b                                                                   # Compile the code in ${MRB_SOURCE}
 ```
 
-To run on FD MC files, this produces a ROOT nTuple:
+Produce a ROOT nTuple by running on DUNE FD MC files (Output file: FD "CAF" file: myntuple.root)
 
 ```
 cd /dune/app/users/weishi/FDEff/srcs/myntuples/myntuples/MyEnergyAnalysis
-lar -c MyEnergyAnalysis.fcl -n -1
-# Or run with nohup
-nohup lar -c MyEnergyAnalysis.fcl -n -1 >& out_myntuple_nohup.log &             # check status: jobs -l
+lar -c MyEnergyAnalysis.fcl -n -1 
 # 10k evts take about 32 minutes
 ```
 
@@ -45,21 +43,9 @@ The next time you login a DUNE FNAL machine (dunegpvm*), do the following to set
 ```
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup dunetpc v09_22_02 -q e19:debug
-source /dune/app/users/weishi/FDEff/localProducts_larsoft_v09_22_02_debug_e19/setup
+source /dune/app/users/$USER/FDEff/localProducts_larsoft_v09_22_02_debug_e19/setup
 mrbsetenv
-cd /dune/app/users/weishi/FDEff/srcs/myntuples/myntuples/MyEnergyAnalysis
-```
-
-If changed ```MyEnergyAnalysis_module.cc```, recompile the code (do the setup above first):
-
-```
-cd ${MRB_BUILDDIR}                        # Go to your build directory
-mrb z                                     # Remove old build directory
-mrbsetenv                                 # Create the bookkeeping files needed to compile programs.
-# On dunegpvm
-mrb b
-# On ivy
-mrb install                               # Compile the code in ${MRB_SOURCE} and put the results in ${MRB_INSTALL}
+cd /dune/app/users/$USER/FDEff/srcs/myntuples/myntuples/MyEnergyAnalysis
 ```
 
 If added new package in ```srcs``` directory, do ```mrb uc``` and then recompile as above.
@@ -70,83 +56,7 @@ To commit changed code changes to remote repository:
 git commit
 git push
 ```
-
-## Run grid jobs
-
-The instruction is based on the [DUNE computing tutorial](https://wiki.dunescience.org/wiki/DUNE_Computing/Submitting_grid_jobs_May2021#Submit_a_job).
-
-Once the above is compiled and runs without problem interactively, you can start to produce a tarball. First, you need to have a grid setup for the localProducts as the grid job typically runs on a different machine than your working machine,
-
-```
-cd /dune/app/users/weishi/FDEff/localProducts_larsoft_v09_22_02_debug_e19
-cp setup setup-grid         # make a copy of the setup for grid job
-```
-
-then in ```setup-grid```, change ```/dune/app/users/weishi``` to the worker node working directory ```${_CONDOR_JOB_IWD}```.
-
-Now get txt file that lists of input files and work env set up script:
-
-```
-cd /dune/app/users/weishi
-wget https://raw.githubusercontent.com/weishi10141993/NeutrinoPhysics/main/MCC11FDBeamsim_nu_reco.txt --no-check-certificate
-wget https://raw.githubusercontent.com/weishi10141993/NeutrinoPhysics/main/setupFDEffTarBall-grid.sh --no-check-certificate
-```
-
-Then make the tarball,
-```
-tar -czvf FDEff.tar.gz FDEff setupFDEffTarBall-grid.sh MCC11FDBeamsim_nu_reco.txt
-
-# Check the tarball *.tar.gz is indeed created and open with: tar -xf *.tar.gz
-```
-
-Now get one of the following grid running scripts
-```
-wget https://raw.githubusercontent.com/weishi10141993/NeutrinoPhysics/main/run_FDEffTarBall_autogrid.sh --no-check-certificate
-# Or this one that allows you to set the number of input files using line number in txt file:
-wget https://raw.githubusercontent.com/weishi10141993/NeutrinoPhysics/main/run_FDEffTarBall_grid.sh --no-check-certificate
-
-```
-
-Finally you can submit the job:
-
-this submits N jobs (since we have 9914 files, N=9914 will run 1 files/job),
-```
-jobsub_submit -G dune -N 9914 --memory=1000MB --disk=1GB --expected-lifetime=30m --cpu=1 --resource-provides=usage_model=DEDICATED,OPPORTUNISTIC,OFFSITE --tar_file_name=dropbox:///dune/app/users/weishi/FDEff.tar.gz --use-cvmfs-dropbox -l '+SingularityImage=\"/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-wn-sl7:latest\"' --append_condor_requirements='(TARGET.HAS_Singularity==true&&TARGET.HAS_CVMFS_dune_opensciencegrid_org==true&&TARGET.HAS_CVMFS_larsoft_opensciencegrid_org==true&&TARGET.CVMFS_dune_opensciencegrid_org_REVISION>=1105&&TARGET.HAS_CVMFS_fifeuser1_opensciencegrid_org==true&&TARGET.HAS_CVMFS_fifeuser2_opensciencegrid_org==true&&TARGET.HAS_CVMFS_fifeuser3_opensciencegrid_org==true&&TARGET.HAS_CVMFS_fifeuser4_opensciencegrid_org==true)' file:///dune/app/users/weishi/run_FDEffTarBall_autogrid.sh
-```
-
-This submit 1 job that will run sequentially your specified range of files,
-
-```
-jobsub_submit -G dune -N 1 --memory=1000MB --disk=1GB --expected-lifetime=30m --cpu=1 --resource-provides=usage_model=DEDICATED,OPPORTUNISTIC,OFFSITE --tar_file_name=dropbox:///dune/app/users/weishi/FDEff.tar.gz --use-cvmfs-dropbox -l '+SingularityImage=\"/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-wn-sl7:latest\"' --append_condor_requirements='(TARGET.HAS_Singularity==true&&TARGET.HAS_CVMFS_dune_opensciencegrid_org==true&&TARGET.HAS_CVMFS_larsoft_opensciencegrid_org==true&&TARGET.CVMFS_dune_opensciencegrid_org_REVISION>=1105&&TARGET.HAS_CVMFS_fifeuser1_opensciencegrid_org==true&&TARGET.HAS_CVMFS_fifeuser2_opensciencegrid_org==true&&TARGET.HAS_CVMFS_fifeuser3_opensciencegrid_org==true&&TARGET.HAS_CVMFS_fifeuser4_opensciencegrid_org==true)' file:///dune/app/users/weishi/run_FDEffTarBall_grid.sh
-```
-
-At the top of ```run_FDEffTarBall_grid.sh```, you can set these variables:
-```
-Number of input files to run: STARTLINE, ENDLINE
-Output directory: OUTDIR
-```
-
-Here are some reference settings:
-
-300 events (3 file): ```--memory=502MB --disk=0.1GB --expected-lifetime=30m --cpu=1```
-
-To check job status,
-
-```
-jobsub_q --user weishi
-jobsub_q 57321037.0@jobsub01.fnal.gov -G dune
-# For more options: jobsub_q --help
-```
-
-To fetch job output,
-
-```
-jobsub_fetchlog 57306776.0@jobsub01.fnal.gov  -G dune
-```
-
-Since Feb 15, 2023, [jobsub_lite](https://fifewiki.fnal.gov/wiki/Getting_started_with_jobsub_lite) becomes the new interface to submit and manage jobs.
-
-### Locate files with SAM
+### Locate files with SAM (Not required but can become helpful)
 
 To get a list of all files in DUNE dataset, use [SAM](https://dune.github.io/computing-training-basics/03-data-management/index.html):
 
