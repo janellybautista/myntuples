@@ -1,4 +1,4 @@
-# Produce Ntuple from DUNE FD MC files (First Step)
+# Produce Ntuple from DUNE FD MC files $\color{#FF0000}{First~Step~(Output~file:~FD~"CAF"~file:~myntuple.root)}$
 
 The following instruction is used to produce ROOT n-tuples from FD MC files (mcc11): [FD Beamsim Requests](https://dune-data.fnal.gov/mc/mcc11/index.html).
 
@@ -30,7 +30,7 @@ mrbsetenv                                                               # Create
 mrb b                                                                   # Compile the code in ${MRB_SOURCE}
 ```
 
-Produce a ROOT nTuple by running on DUNE FD MC files (Output file: FD "CAF" file: myntuple.root) $\color{#FF0000}{like~this!}$
+Produce a ROOT nTuple by running on DUNE FD MC files  $\color{#FF0000}{(Output~file:~FD~"CAF"~file:~myntuple.root)}$
 ```
 cd /dune/app/users/weishi/FDEff/srcs/myntuples/myntuples/MyEnergyAnalysis
 lar -c MyEnergyAnalysis.fcl -n -1 
