@@ -1,6 +1,6 @@
 # Produce Ntuple from DUNE FD MC files 
 
-$\color{#FF0000}{First~Step.}$ Obtain the FD CAF file $\color{#FF0000}{myntuple.root}$. 
+$\color{#FF0000}{First~Step.}$ Obtain the FD CAF file "$\color{#FF0000}{myntuple.root}$". 
 
 The following instruction is used to produce ROOT n-tuples from FD MC files (mcc11): [FD Beamsim Requests](https://dune-data.fnal.gov/mc/mcc11/index.html). The output created is a  file named 
 
