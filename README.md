@@ -2,7 +2,7 @@
 
 The following instruction is used to produce ROOT n-tuples from FD MC files (mcc11): [FD Beamsim Requests](https://dune-data.fnal.gov/mc/mcc11/index.html).
 
-## Environment setup (Obtain myntuples.git)
+## Environment setup
 
 [First time only]
 
@@ -37,7 +37,7 @@ lar -c MyEnergyAnalysis.fcl -n -1
 # 10k evts take about 32 minutes
 ```
 
-[After Set] The next time you login, do the following to set up:
+[Loging back] The next time you login, do the following to set up:
 
 ```
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
