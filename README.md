@@ -32,7 +32,7 @@ mrbsetenv                                                               # Create
 mrb b                                                                   # Compile the code in ${MRB_SOURCE}
 ```
 
-Produce a ROOT nTuple by running on DUNE FD MC files ($\color{#FF0000}{Output_file}$ : $\color{#FF0000}{myntuple.root}$) 
+Produce a ROOT nTuple by running on DUNE FD MC files ($\color{#FF0000}{Output~file}$ : $\color{#FF0000}{myntuple.root}$) 
 ```
 cd /dune/app/users/$USER/FDEff/srcs/myntuples/myntuples/MyEnergyAnalysis
 lar -c MyEnergyAnalysis.fcl -n -1                                       # Obtain myntuple.root
