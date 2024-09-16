@@ -33,7 +33,7 @@ mrb b                                                                   # Compil
 Produce a ROOT nTuple by running on DUNE FD MC files (The  $\color{#FF0000}{OUTPUT}$ file is a FD "CAF" file: $\color{#FF0000}{myntuple.root}$) 
 ```
 cd /dune/app/users/$USER/FDEff/srcs/myntuples/myntuples/MyEnergyAnalysis
-lar -c MyEnergyAnalysis.fcl -n -1 
+lar -c MyEnergyAnalysis.fcl -n -1                                       # Obtain myntuple.root
 # 10k evts take about 32 minutes
 ```
 
