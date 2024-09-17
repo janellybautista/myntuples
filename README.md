@@ -4,7 +4,7 @@ The following instruction is used to produce ROOT n-tuples from FD MC CAF files 
 
 Output: " $\color{#FF0000}{myntuple.root}$ ". 
 
-## [First time environment setup only]
+## First time environment setup only
 
 
 
@@ -39,7 +39,7 @@ lar -c MyEnergyAnalysis.fcl -n -1                                       # Obtain
 # 10k evts take about 32 minutes
 ```
 
-[Set up when loging back] 
+## Enviroment setup when loging back]
 
 ```
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
