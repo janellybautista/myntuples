@@ -4,9 +4,9 @@ The following instruction is used to produce ROOT n-tuples from FD MC CAF files 
 
 Output: " $\color{#FF0000}{myntuple.root}$ ". 
 
-## Environment setup
+## [First time environment setup only]
 
-[First time setup only]
+
 
 ```
 cd /dune/app/users/$USER                                               
