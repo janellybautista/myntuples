@@ -57,7 +57,7 @@ To commit changed code changes to remote repository:
 git commit
 git push
 ```
-## Locate files with SAM (Not required but can become helpful)
+## Locate files with SAM (Not required but can be helpful)
 
 To get a list of all files in DUNE dataset, use [SAM](https://dune.github.io/computing-training-basics/03-data-management/index.html):
 
