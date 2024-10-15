@@ -59,7 +59,7 @@ lar -c MyEnergyAnalysis.fcl -n -1                                       # Obtain
 # 10k evts take about 32 minutes
 ```
 
-# Enviroment setup when loging back
+## Enviroment setup when loging back
 
 ```
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
@@ -77,7 +77,7 @@ To commit changed code changes to remote repository:
 git commit
 git push
 ```
-## Locate files with SAM (Not required but can be helpful)
+# Locate files with SAM (Not required but can be helpful)
 
 To get a list of all files in DUNE dataset, use [SAM](https://dune.github.io/computing-training-basics/03-data-management/index.html):
 
