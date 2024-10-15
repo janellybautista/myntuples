@@ -1,11 +1,11 @@
-# 1. Produce Ntuple from DUNE FD MC files 
+# Produce Ntuple from DUNE FD MC files 
 
 The following instruction is used to produce ROOT n-tuples from FD MC CAF files (mcc11): [FD Beamsim Requests](https://dune-data.fnal.gov/mc/mcc11/index.html). 
 
 Output: " $\color{#FF0000}{myntuple.root}$ ". 
 
 
-## FNAL machine
+## FNAL machine setup
 ### 1. Log in & DUNE FNAL machines (dunegpvm*) environment setup:
 ```
 kfnal                                      # Short for kinit -f <username>@FNAL.GOV. 
@@ -58,7 +58,7 @@ lar -c MyEnergyAnalysis.fcl -n -1                                       # Obtain
 # 10k evts take about 32 minutes
 ```
 
-## 2. Enviroment setup when loging back
+### 2. Enviroment setup when loging back
 
 ```
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
@@ -76,7 +76,7 @@ To commit changed code changes to remote repository:
 git commit
 git push
 ```
-# (Not required but can be helpful) Locate files with SAM 
+## Locate files with SAM 
 
 To get a list of all files in DUNE dataset, use [SAM](https://dune.github.io/computing-training-basics/03-data-management/index.html):
 
