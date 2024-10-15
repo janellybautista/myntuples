@@ -4,9 +4,7 @@ The following instruction is used to produce ROOT n-tuples from FD MC CAF files 
 
 Output: " $\color{#FF0000}{myntuple.root}$ ". 
 
-
-## FNAL machine setup
-### 1. Log in & DUNE FNAL machines (dunegpvm*) environment setup:
+## 1. Log in & DUNE FNAL machines (dunegpvm*) environment setup:
 ```
 kfnal                                      # Short for kinit -f <username>@FNAL.GOV. 
 ssh -X janelly@dunegpvm01.fnal.gov      
@@ -23,7 +21,7 @@ ssh -Y -L 5901:localhost:5901 janelly@dunegpvm01.fnal.gov
 /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
 ```
 
-#### First time environment setup only
+### First time environment setup only
 
 
 
@@ -58,7 +56,7 @@ lar -c MyEnergyAnalysis.fcl -n -1                                       # Obtain
 # 10k evts take about 32 minutes
 ```
 
-### 2. Enviroment setup when loging back
+## 2. Enviroment setup when loging back
 
 ```
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
@@ -76,7 +74,7 @@ To commit changed code changes to remote repository:
 git commit
 git push
 ```
-## Locate files with SAM 
+### Locate files with SAM 
 
 To get a list of all files in DUNE dataset, use [SAM](https://dune.github.io/computing-training-basics/03-data-management/index.html):
 
